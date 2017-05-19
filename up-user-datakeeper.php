@@ -2,7 +2,7 @@
 /*
 Plugin Name: Up User Datakeeper
 Plugin URI:  https://developer.wordpress.org/plugins/up-user-datakeeper
-Description: Basic WordPress Plugin Header Comment
+Description: A plugin to keep the info of users in wordpress
 Version:     1.0.0
 Author:      WordPress.org
 Author URI:  http://viewup.com.br/
@@ -24,29 +24,67 @@ You should have received a copy of the GNU General Public License
 along with Up User Datakeeper. If not, see https://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
 */
 
+
+require 'vendor/autoload.php';
+use UDK\DB;
+
 class UpUserDatakeeper{
-	function initActivationHook(){
-		register_activation_hook( __FILE__,  function(){
 
-		});
+	private $tableName;
+
+	public function initActivationHook(){		
+		
+		function _initActivationHook(){
+
+
+		}
+
+		register_activation_hook( __FILE__, '_initActivationHook');
 	}
 
-	function initDeactivationHook(){
-		register_deactivation_hook( __FILE__,  function(){
+	public function initDeactivationHook(){
 
-		});
+		function _initDeactivationHook(){
+
+		}
+
+		register_deactivation_hook( __FILE__, '_initDeactivationHook');
 	}
 
-	function initUninstallHook(){
-		register_uninstall_hook(__FILE__, function(){
+	public function initUninstallHook(){
 
-		});
+		function _initUninstallHook(){
+
+		}
+
+		register_uninstall_hook(__FILE__, '_initUninstallHook');
 	}
 
-	function __construct(){
+	private function initUserDataTable(){
+		global $wpdb;
+		$this->tableName = $wpdb->prefix . "udk_user_data"; 
+
+		if( DB::tableExists($this->tableName) ){
+			$x = 1;
+		}
+		else{
+			DB::createTable($this->tableName, [				
+				'id int(11) NOT NULL AUTO_INCREMENT',
+				'user_id int(11) NOT NULL',
+				'key text NOT NULL',
+				'value text NOT NULL',
+				'PRIMARY KEY  (id)'
+			]);
+		}
+
+
+	}
+
+	public function __construct(){
 		$this->initActivationHook();
 		$this->initDeactivationHook();
 		$this->initUninstallHook();
+		$this->initUserDataTable();
 	}
 
 }
