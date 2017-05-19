@@ -24,15 +24,18 @@ You should have received a copy of the GNU General Public License
 along with Up User Datakeeper. If not, see https://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
 */
 
+namespace UDK;
+
 
 require 'vendor/autoload.php';
+
 
 use UDK\DB;
 use UDK\API;
 
 class UpUserDatakeeper{
 
-	private $tableName;
+	static $tableName;
 
 	public function initActivationHook(){		
 		
@@ -64,14 +67,14 @@ class UpUserDatakeeper{
 
 	private function initUserDataTable(){
 		global $wpdb;
-		$this->tableName = $wpdb->prefix . "udk_user_data"; 
+		self::$tableName = $wpdb->prefix . "udk_user_data"; 
 
-		if( DB::tableExists($this->tableName) ){
+		if( DB::tableExists(self::$tableName) ){
 			//silence is golden
 
 		}
 		else{
-			DB::createTable($this->tableName, [				
+			DB::createTable(self::$tableName, [				
 				'id int(11) NOT NULL AUTO_INCREMENT',
 				'user_id int(11) NOT NULL',
 				'_key text NOT NULL',
@@ -88,7 +91,7 @@ class UpUserDatakeeper{
 		$this->initDeactivationHook();
 		$this->initUninstallHook();
 		$this->initUserDataTable();
-		new API();
+		API::getUserData(1);
 		$x = 1;
 	}
 
