@@ -22,9 +22,9 @@ class DB{
 
 		$charsetCollate = $wpdb->get_charset_collate();
 
-		$fieldsImploded = implode(',', $fields);
+		$fieldsImploded = implode(",\n", $fields);
 
-		$sql = "CREATE TABLE $tableName ($fieldsImploded) $charsetCollate;";		
+		$sql = "CREATE TABLE $tableName ( \n$fieldsImploded\n ) $charsetCollate;";		
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		$result = dbDelta( $sql );
 		$x = 1;

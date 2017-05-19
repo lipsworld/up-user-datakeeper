@@ -26,7 +26,9 @@ along with Up User Datakeeper. If not, see https://www.gnu.org/licenses/old-lice
 
 
 require 'vendor/autoload.php';
+
 use UDK\DB;
+use UDK\API;
 
 class UpUserDatakeeper{
 
@@ -65,14 +67,15 @@ class UpUserDatakeeper{
 		$this->tableName = $wpdb->prefix . "udk_user_data"; 
 
 		if( DB::tableExists($this->tableName) ){
-			$x = 1;
+			//silence is golden
+
 		}
 		else{
 			DB::createTable($this->tableName, [				
 				'id int(11) NOT NULL AUTO_INCREMENT',
 				'user_id int(11) NOT NULL',
-				'key text NOT NULL',
-				'value text NOT NULL',
+				'_key text NOT NULL',
+				'_value text NOT NULL',
 				'PRIMARY KEY  (id)'
 			]);
 		}
@@ -85,6 +88,8 @@ class UpUserDatakeeper{
 		$this->initDeactivationHook();
 		$this->initUninstallHook();
 		$this->initUserDataTable();
+		new API();
+		$x = 1;
 	}
 
 }
