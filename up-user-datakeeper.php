@@ -68,33 +68,39 @@ class UpUserDatakeeper{
 	private function initUserDataTable(){
 		global $wpdb;
 		self::$tableName = $wpdb->prefix . "udk_user_data"; 
+		
 
 		if( DB::tableExists(self::$tableName) ){
 			//silence is golden
 
 		}
-		else{
-			DB::createTable(self::$tableName, [				
-				'id int(11) NOT NULL AUTO_INCREMENT',
-				'user_id int(11) NOT NULL',
-				'_key text NOT NULL',
-				'_value text NOT NULL',
-				'PRIMARY KEY  (id)'
-			]);
+		else{		
+
+			$arrFields = DB::getModelArray( User::getModel() );
+			DB::createTable(self::$tableName, $arrFields);
 		}
 
 
 	}
 
-	public function __construct(){
+	public function initScript($handle, $scriptPath, $dependencies = []){
+		wp_register_script( $handle, plugins_url( $scriptPath, __FILE__ ), $dependencies);
+		wp_enqueue_script( $handle );	
+	}
+
+	public function initScripts(){
+		 $this->initScript('up-user-datakeeper', '/js/up-user-datakeeper.js', ['jquery']);		
+	}
+	
+	public function __construct(){		
 		$this->initActivationHook();
 		$this->initDeactivationHook();
 		$this->initUninstallHook();
 		$this->initUserDataTable();
-		API::getUserData(1);
-		$x = 1;
+		$this->initScripts();
 	}
 
 }
 
 new UpUserDatakeeper();
+$UDKApi = new API();

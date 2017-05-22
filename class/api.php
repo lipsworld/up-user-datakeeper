@@ -4,13 +4,16 @@ namespace UDK;
 
 class API{
     
-    static function getUserData($userId){
+    public static function getUserData($userId){
+        User::getData($userId);
+    }    
 
-        global $wpdb;
-        $tableName = UpUserDatakeeper::$tableName;
-        $userData = $wpdb->get_row( "SELECT * FROM $tableName WHERE id = $userId" );
-        return $userData;
+    public static function addUserData($userId, $key, $value){
+       return User::addData($userId, $key, $value);        
+    }
 
+    public static function removeUserData($userId, $key, $value){
+       return User::removeData($userId, $key, $value);        
     }
 
 }
