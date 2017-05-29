@@ -53,7 +53,6 @@
             return self::$model;
         }
 
-
         public static function getData($userId){
             global $wpdb;
             $tableName = UpUserDatakeeper::$tableName;
@@ -100,6 +99,25 @@
             
         }
 
+        public static function verifyDataExists($userId, $key, $value){
+            $data = self::getData($userId);
+            $data = $data[$key];
+
+            if( gettype($data) == 'array'){
+                $assert = in_array($value, $data);                
+            }
+            else{
+                $assert = $value == $data;                
+            }
+
+            if($assert){
+                return true;
+            }
+            else{
+                return false;
+            }            
+        }
+
 
         public function addData($userId, $key, $value){
 
@@ -108,16 +126,14 @@
 
             if( self::_verifyDuplicity($userId, $key, $value) ){
 
-                return [
-                    'success' => false,
-                    'data' => [
-                        'message' => "Value '$value' already exists in key '$key'."
-                    ]
-                ];
+                return Utils::sendError([
+                    'message' => "Value '$value' already exists in key '$key'."
+                ]);
+
             }
             else{                
 
-                $wpdb->insert( 
+                $result = $wpdb->insert( 
                     $tableName, 
                     array( 
                         'user_id' => $userId,
@@ -131,18 +147,16 @@
                     ) 
                 );
 
-                return [
-                    'success' => true,
-                    'data' => [
+                if($result === 1){
+                    return Utils::sendSuccess([
                         'message' => "Value '$value' added successfully to key '$key'."
-                    ]
-                ];
+                    ]);
+                }
+                else{
 
-               
+                }                             
 
-            }
-
-            
+            }           
 
         }
 
@@ -160,7 +174,7 @@
                 '%s'
             ]);
 
-            if($result){
+            if($result !== false){
                 return true;
             }
             else{

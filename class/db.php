@@ -3,8 +3,6 @@
 
 namespace UDK;
 
-// use NilPortugues\Sql\QueryBuilder\Builder\GenericBuilder;
-
 class DB{
 
     static function tableExists($tableName){

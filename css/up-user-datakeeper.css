@@ -1,0 +1,7 @@
+[data-udk-elems]{
+    transition: opacity 400ms;
+}
+
+[data-udk-elems].udk-fade-out{
+    opacity: 0;
+}

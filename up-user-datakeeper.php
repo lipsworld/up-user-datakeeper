@@ -30,14 +30,22 @@ namespace UDK;
 require 'vendor/autoload.php';
 
 
-use UDK\DB;
-use UDK\API;
+// use UDK\DB;
+// use UDK\API;
+// use UDK\Ajax;
 
 class UpUserDatakeeper{
 
-	static $tableName;
+	static $tableName;	
+	private $nonceAction = 'up-user-datakeeper';
+	private $nonce;
+	private $debug = true;
 
-	public function initActivationHook(){		
+	private function initNonce(){
+		$this->nonce = wp_create_nonce($this->nonceAction);
+	}
+
+	private function initActivationHook(){		
 		
 		function _initActivationHook(){
 
@@ -47,7 +55,7 @@ class UpUserDatakeeper{
 		register_activation_hook( __FILE__, '_initActivationHook');
 	}
 
-	public function initDeactivationHook(){
+	private function initDeactivationHook(){
 
 		function _initDeactivationHook(){
 
@@ -56,7 +64,7 @@ class UpUserDatakeeper{
 		register_deactivation_hook( __FILE__, '_initDeactivationHook');
 	}
 
-	public function initUninstallHook(){
+	private function initUninstallHook(){
 
 		function _initUninstallHook(){
 
@@ -80,10 +88,9 @@ class UpUserDatakeeper{
 			DB::createTable(self::$tableName, $arrFields);
 		}
 
-
 	}
 
-	public function initScript($handle, $scriptPath, $dependencies = [], $dataName = '', $data = []){
+	private function initScript($handle, $scriptPath, $dependencies = [], $dataName = '', $data = []){
 		wp_register_script( $handle, plugins_url( $scriptPath, __FILE__ ), $dependencies);
 		if($dataName){
 			wp_localize_script( $handle, $dataName, $data );
@@ -91,41 +98,57 @@ class UpUserDatakeeper{
 		wp_enqueue_script( $handle );	
 	}
 
-	public function initScripts(){
+	private function initStyle($handle, $scriptPath, $dependencies = []){
+		wp_register_style( $handle, plugins_url( $scriptPath, __FILE__ ), $dependencies);		
+		wp_enqueue_style( $handle );	
+	}
+
+	private function initScripts(){
 		
 		$this->initScript('up-user-datakeeper', '/js/up-user-datakeeper.js', ['jquery'], 'udk', [
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-			'ajaxNonce' => wp_create_nonce('silence is golden!'),
+			'ajaxNonce' => $this->nonce,
 		]);
 	}
 
-	public function addScriptData($handle, $objectName, $object){
+	private function addScriptData($handle, $objectName, $object){
 		wp_localize_script( $handle, $objectName, $obj );
+	}	
+
+	private function initAjax(){
+		Ajax::addAction('udk_add', function(){
+			$data = $_POST;
+			$result = API::addUserData( $data['userId'], $data['key'], $data['value'] );
+
+			if($this->debug === true){
+				$data['result'] = $result;
+			}
+			
+
+			if($result['success'] === true){
+				wp_send_json_success( $data );
+			}
+			else{
+				wp_send_json_error( $data );
+			}
+			
+		}, $this->nonceAction);	
 	}
 
-	public function initAjaxAddUserData(){
+	public function initStyles(){
+		$this->initStyle('up-user-datakeeper', '/css/up-user-datakeeper.css');
 
-		function udk_add() {
-			$result = getPosts();
-			echo json_encode($result, true);
-			wp_die(); //ajax handlers die when finished
-		}
-
-		add_action( 'wp_ajax_nopriv_udk_add', 'udk_add' );
-		add_action( 'wp_ajax_udk_add', 'udk_add' );	
-		
-		
 	}
 	
-	public function __construct(){		
-		
+	public function __construct(){	
+		$this->initNonce();
 		$this->initActivationHook();
 		$this->initDeactivationHook();
 		$this->initUninstallHook();
 		$this->initUserDataTable();
-		$this->initScripts();
-		$this->initAjaxAddUserData();
-		
+		$this->initScripts();	
+		$this->initStyles();	
+		$this->initAjax();		
 	}
 
 }
