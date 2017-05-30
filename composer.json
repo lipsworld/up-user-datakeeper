@@ -1,18 +1,15 @@
 {
     "name": "viewup/up-user-datakeeper",
-    "authors": [
-        {
-            "name": "Lucas Viewup",
-            "email": "lucas@viewup.com.br"
-        }
-    ],
+    "authors": [{
+        "name": "Lucas Viewup",
+        "email": "lucas@viewup.com.br"
+    }],
     "require": {
-        "nilportugues/sql-query-builder": "^1.5"
+
     },
     "autoload": {
         "psr-4": {
             "UDK\\": "class/"
         }
     }
-    
 }

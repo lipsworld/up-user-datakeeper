@@ -4,17 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit36882f75347455ad2de9eb9cce490f7c
+class ComposerStaticInitbeb4363ef0bcae87b27d48300e600201
 {
     public static $prefixLengthsPsr4 = array (
         'U' => 
         array (
             'UDK\\' => 4,
-        ),
-        'N' => 
-        array (
-            'NilPortugues\\Sql\\QueryFormatter\\' => 32,
-            'NilPortugues\\Sql\\QueryBuilder\\' => 30,
         ),
     );
 
@@ -23,21 +18,13 @@ class ComposerStaticInit36882f75347455ad2de9eb9cce490f7c
         array (
             0 => __DIR__ . '/../..' . '/class',
         ),
-        'NilPortugues\\Sql\\QueryFormatter\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nilportugues/sql-query-formatter/src',
-        ),
-        'NilPortugues\\Sql\\QueryBuilder\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/nilportugues/sql-query-builder/src',
-        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit36882f75347455ad2de9eb9cce490f7c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit36882f75347455ad2de9eb9cce490f7c::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbeb4363ef0bcae87b27d48300e600201::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbeb4363ef0bcae87b27d48300e600201::$prefixDirsPsr4;
 
         }, null, ClassLoader::class);
     }

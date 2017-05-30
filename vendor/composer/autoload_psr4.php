@@ -7,6 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'UDK\\' => array($baseDir . '/class'),
-    'NilPortugues\\Sql\\QueryFormatter\\' => array($vendorDir . '/nilportugues/sql-query-formatter/src'),
-    'NilPortugues\\Sql\\QueryBuilder\\' => array($vendorDir . '/nilportugues/sql-query-builder/src'),
 );
