@@ -56,9 +56,7 @@
             this.initRemoveElements();
             this.bindClick(this.$add);
             this.bindClick(this.$remove);
-            
-            // console.log($.fn.jquery);
-            // alert('testing javascript!');
+        
         },
 
         click: function(callback){
