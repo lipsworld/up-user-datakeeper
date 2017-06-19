@@ -146,7 +146,7 @@
             }
             elseif($value){
                 return Utils::sendError([
-                    'message' => "Invalid user id!",
+                    'message' => "Invalid value!",
                     'value' => $value                    
                 ]);
             }
