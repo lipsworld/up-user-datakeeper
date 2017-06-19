@@ -88,7 +88,7 @@
         private static function _verifyDuplicity($userId, $key, $value){
             global $wpdb;
             $tableName = UpUserDatakeeper::$tableName;        
-            $userData = $wpdb->get_results( "SELECT * FROM $tableName WHERE _key = '$key' AND _value = '$value' AND user_id = $userId", OBJECT);
+            $userData = $wpdb->get_results( "SELECT * FROM $tableName WHERE _key = '$key' AND _value = '$value' AND user_id = '$userId'", OBJECT);
 
             if( count($userData) ){
                 return true;

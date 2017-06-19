@@ -122,8 +122,7 @@ class UpUserDatakeeper{
 
 			if($this->debug === true){
 				$data['result'] = $result;
-			}
-			
+			}			
 
 			if($result['success'] === true){
 				wp_send_json_success( $data );
@@ -149,7 +148,7 @@ class UpUserDatakeeper{
 			'callback' => function(){
 				$data = $_POST;
 				$result = API::addUserData( $data['userId'], $data['key'], $data['value'] );
-				wp_send_json_success( $result );
+				wp_send_json( $result );
 			}			
 		]);
 
