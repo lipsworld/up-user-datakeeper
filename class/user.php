@@ -125,13 +125,8 @@
             $tableName = UpUserDatakeeper::$tableName;
 
 
+                 
             if( !ctype_digit($userId) ){
-                return Utils::sendError([
-                    'message' => "Invalid user id!"
-                ]);
-                
-            }      
-            elseif( !ctype_digit($userId) ){
                 return Utils::sendError([
                     'message' => "Invalid user id!",
                     'id' => $userId
