@@ -22,7 +22,7 @@ class REST{
         });
     }
 
-    public function setNamepace($namespace){
+    public function setNamespace($namespace){
         $this->namespace = $namespace;
     }
 
