@@ -6,10 +6,22 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitbeb4363ef0bcae87b27d48300e600201
 {
+    public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'U' => 
         array (
             'UDK\\' => 4,
+        ),
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+        ),
+        'R' => 
+        array (
+            'Respect\\Validation\\' => 19,
         ),
     );
 
@@ -17,6 +29,14 @@ class ComposerStaticInitbeb4363ef0bcae87b27d48300e600201
         'UDK\\' => 
         array (
             0 => __DIR__ . '/../..' . '/class',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Respect\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/respect/validation/library',
         ),
     );
 

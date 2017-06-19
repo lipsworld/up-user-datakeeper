@@ -111,10 +111,14 @@
             }
 
             if($assert){
-                return true;
+                return Utils::sendSuccess([
+                    'exists' => true
+                ]);
             }
             else{
-                return false;
+                return Utils::sendSuccess([
+                    'exists' => false
+                ]);
             }            
         }
 
