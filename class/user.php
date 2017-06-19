@@ -138,13 +138,13 @@
                 ]);
                 
             }
-            elseif($key){
+            elseif(!$key){
                 return Utils::sendError([
                     'message' => "Invalid key!",
                     'key' => $key                    
                 ]);
             }
-            elseif($value){
+            elseif(!$value){
                 return Utils::sendError([
                     'message' => "Invalid value!",
                     'value' => $value                    
