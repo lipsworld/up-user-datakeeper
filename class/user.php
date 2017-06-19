@@ -124,7 +124,33 @@
             global $wpdb;
             $tableName = UpUserDatakeeper::$tableName;
 
-            if( self::_verifyDuplicity($userId, $key, $value) ){
+
+            if( !ctype_digit($userId) ){
+                return Utils::sendError([
+                    'message' => "Invalid user id!"
+                ]);
+                
+            }      
+            elseif( !ctype_digit($userId) ){
+                return Utils::sendError([
+                    'message' => "Invalid user id!",
+                    'id' => $userId
+                ]);
+                
+            }
+            elseif($key){
+                return Utils::sendError([
+                    'message' => "Invalid key!",
+                    'key' => $key                    
+                ]);
+            }
+            elseif($value){
+                return Utils::sendError([
+                    'message' => "Invalid user id!",
+                    'value' => $value                    
+                ]);
+            }
+            elseif( self::_verifyDuplicity($userId, $key, $value) ){
 
                 return Utils::sendError([
                     'message' => "Value '$value' already exists in key '$key'."
