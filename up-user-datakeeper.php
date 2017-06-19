@@ -162,6 +162,7 @@ class UpUserDatakeeper{
 		$this->initScripts();	
 		$this->initStyles();	
 		$this->initAjax();		
+		$this->initRestAPI();
 	}
 
 }
