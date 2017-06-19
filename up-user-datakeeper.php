@@ -152,6 +152,16 @@ class UpUserDatakeeper{
 			}			
 		]);
 
+		$rest->addRoute([
+			'route' => 'exists',
+			'methods' => 'GET',
+			'callback' => function(){
+				$data = $_POST;
+				$result = API::uExists( $data['userId'], $data['key'], $data['value'] );
+				wp_send_json( $result );
+			}			
+		]);
+
 		$rest->initAction();
 	}
 	
