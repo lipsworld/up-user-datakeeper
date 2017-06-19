@@ -155,7 +155,7 @@ class UpUserDatakeeper{
 			'route' => 'exists',
 			'methods' => 'GET',
 			'callback' => function(){
-				$data = $_POST;
+				$data = $_GET;
 				$result = API::uExists( $data['userId'], $data['key'], $data['value'] );
 				wp_send_json( $result );
 			}			
