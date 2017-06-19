@@ -145,8 +145,11 @@ class UpUserDatakeeper{
 		$rest->setNamespace('udk/v1');
 		$rest->addRoute([
 			'route' => 'add',
+			'methods' => 'POST',
 			'callback' => function(){
-				return 'bazinga';
+				$data = $_POST;
+				$result = API::addUserData( $data['userId'], $data['key'], $data['value'] );
+				wp_send_json_success( $result );
 			}			
 		]);
 
