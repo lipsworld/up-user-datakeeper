@@ -103,7 +103,7 @@
             $data = self::getData($userId);
             $data = $data[$key];
 
-            if( gettype($data) == 'array'){
+            if( v::ArrayVal()->validate($data) ){
                 $assert = in_array($value, $data);                
             }
             else{
@@ -127,23 +127,21 @@
 
             global $wpdb;
             $tableName = UpUserDatakeeper::$tableName;
-
-
                  
-            if( !ctype_digit($userId) ){
+            if( !v::Numeric()->validate($userId) ){
                 return Utils::sendError([
                     'message' => "Invalid user id!",
                     'id' => $userId
                 ]);
                 
             }
-            elseif(!$key){
+            elseif( !v::StringType()->validate($key) ){
                 return Utils::sendError([
                     'message' => "Invalid key!",
                     'key' => $key                    
                 ]);
             }
-            elseif(!$value){
+            elseif(!v::StringType()->validate($value) ){
                 return Utils::sendError([
                     'message' => "Invalid value!",
                     'value' => $value                    
