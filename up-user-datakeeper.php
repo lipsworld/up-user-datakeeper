@@ -28,7 +28,6 @@ namespace UDK;
 
 
 require 'vendor/autoload.php';
-use Respect\Validation\Validator as v;
 
 // use UDK\DB;
 // use UDK\API;

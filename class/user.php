@@ -2,6 +2,8 @@
 
     namespace UDK;
 
+    use Respect\Validation\Validator as v;
+
     class User{
 
         private static $model = [
