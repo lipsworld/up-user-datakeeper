@@ -139,6 +139,19 @@ class UpUserDatakeeper{
 		$this->initStyle('up-user-datakeeper', '/css/up-user-datakeeper.css');
 
 	}
+
+	public function initRestAPI(){
+		$rest = new REST();
+		$rest->setNamespace('udk/v1');
+		$rest->addRoute([
+			'route' => 'add',
+			'callback' => function(){
+				return 'bazinga';
+			}			
+		]);
+
+		$rest->initAction();
+	}
 	
 	public function __construct(){	
 		$this->initNonce();
