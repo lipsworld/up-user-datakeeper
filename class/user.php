@@ -12,12 +12,12 @@
             ],
             [
                 'column' => '_key',
-                'dataType' => 'varchar(20) NOT NULL',
+                'dataType' => 'text NOT NULL',
                 'type' => 'field'
             ],
             [
                 'column' => '_value',
-                'dataType' => 'varchar(20) NOT NULL',
+                'dataType' => 'text NOT NULL',
                 'type' => 'field'
             ],
             [
@@ -154,6 +154,7 @@
             }
             else{                
 
+                $wpdb->flush();
                 $result = $wpdb->insert( 
                     $tableName, 
                     array( 
@@ -168,13 +169,17 @@
                     ) 
                 );
 
+              
+
                 if($result === 1){
                     return Utils::sendSuccess([
                         'message' => "Value '$value' added successfully to key '$key'."
                     ]);
                 }
                 else{
-
+                    return Utils::sendError([
+                        'message' => "Error in database, check the mysql query!"
+                    ]);
                 }                             
 
             }           
