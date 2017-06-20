@@ -190,9 +190,11 @@
 
         }
 
-        public function getColByKey($key){
-            $tableName = UpUserDatakeeper::$tableName;  
-            return DB::getCol($tableName, '_key', $key);
+        public function getCol($key, $userId){
+            $tableName = UpUserDatakeeper::$tableName;
+            $query = "SELECT _key FROM $tableName WHERE _key LIKE %s AND user_id";
+            $args = [ $key ];  
+            return DB::getCol($query, $args);
         }
 
         public function removeData($userId, $key, $value){

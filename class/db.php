@@ -70,14 +70,11 @@ class DB{
 		return $arrFields;
 	}
 
-	static function getCol($tableName, $column, $valueLike){
+	static function getCol($query, $args){
 		global $wpdb;
 		
-		$sql = $wpdb->prepare("SELECT $column FROM $tableName WHERE $column LIKE %s", [
-			$valueLike
-		]);
-
-		return $wpdb->get_col($sql);		
+		$sql = $wpdb->prepare($query, $args);
+		return $wpdb->get_col($sql);
 	}
 
 }
