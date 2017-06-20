@@ -25,8 +25,13 @@ class API{
         return self::verifyUserDataExists($userId, $key, $value);
     }
 
+    public static function encode($data){
+        return Utils::encode($data);
+    }
 
-
+    public static function decode($data){
+        return Utils::decode($data);
+    }
 }
 
 ?>
