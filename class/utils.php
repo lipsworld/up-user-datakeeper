@@ -18,7 +18,7 @@ class Utils{
     }
 
     public static function encode($data){
-        return base64_encode( serialize($obj) );
+        return base64_encode( serialize($data) );
     }
 
     public static function decode($data){
