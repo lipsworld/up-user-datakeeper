@@ -5,7 +5,7 @@ namespace UDK;
 class API{
     
     public static function getUserData($userId){
-        User::getData($userId);
+        return User::getData($userId);
     }    
 
     public static function verifyUserDataExists($userId, $key, $value){
