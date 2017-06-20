@@ -58,7 +58,12 @@
         public static function getData($userId){
             global $wpdb;
             $tableName = UpUserDatakeeper::$tableName;
-            $userData = $wpdb->get_results( "SELECT * FROM $tableName WHERE user_id = $userId", OBJECT);
+
+            $sql = $wpdb->prepare("SELECT * FROM $tableName WHERE user_id = %d", [
+                $userId
+            ]);
+
+            $userData = $wpdb->get_results($sql, OBJECT);
         
             $userDataArr = [];
 
