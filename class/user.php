@@ -192,8 +192,8 @@
 
         public function getCol($key, $userId){
             $tableName = UpUserDatakeeper::$tableName;
-            $query = "SELECT _key FROM $tableName WHERE _key LIKE %s AND user_id";
-            $args = [ $key ];  
+            $query = "SELECT _key FROM $tableName WHERE _key LIKE %s AND user_id = %d";
+            $args = [ $key, $userId ];  
             return DB::getCol($query, $args);
         }
 
