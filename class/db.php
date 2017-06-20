@@ -73,9 +73,7 @@ class DB{
 	static function getCol($tableName, $column, $valueLike){
 		global $wpdb;
 		
-		$sql = $wpdb->prepare("SELECT %s FROM $tableName WHERE %s LIKE %s", [
-			$column,		
-			$column,
+		$sql = $wpdb->prepare("SELECT $column FROM $tableName WHERE $column LIKE %s", [
 			$valueLike
 		]);
 
