@@ -21,8 +21,11 @@ class DB{
 		$charsetCollate = $wpdb->get_charset_collate();
 
 		$fieldsImploded = implode(",\n", $fields);
-
-		$sql = "CREATE TABLE $tableName ( \n$fieldsImploded\n ) $charsetCollate;";		
+		
+		$sql = $wpdb->prepare('CREATE TABLE %s ( \n%s\n ) $charsetCollate;"', [
+			$tableName,
+			$fieldsImploded
+		]);
 		return self::_runDbDelta($sql);
 	}
 
@@ -38,7 +41,7 @@ class DB{
 	}
 
 	static function dropTable($table){
-		$sql = "DROP TABLE IF EXISTS $table";
+		$sql = $wpdb->prepare("DROP TABLE IF EXISTS %s", [$table]);
 		return self::_runQuery($sql);
 	}
 
@@ -65,6 +68,14 @@ class DB{
 		}
 
 		return $arrFields;
+	}
+
+	static function getCol($tableName, $column, $valueLike){
+		$sql = $wpdb->prepare('SELECT * FROM %s WHERE %s LIKE %s', [
+			$tableName,
+			$column,
+			$valueLike
+		]);
 	}
 
 }
