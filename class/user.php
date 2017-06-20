@@ -190,9 +190,9 @@
 
         }
 
-        public function getCol($column, $value){
+        public function getColByKey($key){
             $tableName = UpUserDatakeeper::$tableName;  
-            return DB::getCol($tableName, '_key', $value);
+            return DB::getCol($tableName, '_key', $key);
         }
 
         public function removeData($userId, $key, $value){
