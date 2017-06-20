@@ -190,6 +190,11 @@
 
         }
 
+        public function getCol($column, $value){
+            $tableName = UpUserDatakeeper::$tableName;  
+            return DB::getCol($tableName, $column, $value);
+        }
+
         public function removeData($userId, $key, $value){
             global $wpdb;
             $tableName = UpUserDatakeeper::$tableName;  
