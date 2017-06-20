@@ -33,8 +33,8 @@ class API{
         return Utils::decode($data);
     }
 
-    public static function getColByKey($key){
-        return User::getColByKey($key);
+    public static function getCol($key, $userId){
+        return User::getCol($key, $userId);
     }
 }
 
