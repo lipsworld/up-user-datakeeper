@@ -1,6 +1,7 @@
 <?php
 namespace UDK;
 
+
 class Utils{
 
     public static function sendSuccess($obj){

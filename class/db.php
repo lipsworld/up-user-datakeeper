@@ -3,6 +3,7 @@
 
 namespace UDK;
 
+
 class DB{
 
     static function tableExists($tableName){

@@ -2,6 +2,7 @@
 
 namespace UDK;
 
+
 class Ajax{
     public static function addAction($actionName, $callback, $nonceAction = '', $types = ['priv' => true, 'nopriv' => true] ){
 		
