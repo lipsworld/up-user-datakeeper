@@ -27,22 +27,18 @@ along with Up User Datakeeper. If not, see https://www.gnu.org/licenses/old-lice
 namespace UDK;
 
 
-require 'vendor/autoload.php';
-
-// use UDK\DB;
-// use UDK\API;
-// use UDK\Ajax;
+require_once  plugin_dir_path( __FILE__ )  . '/vendor/autoload.php';
 
 class UpUserDatakeeper{
 
 	static $tableName;	
 	private $nonceAction = 'up-user-datakeeper';
-	private $nonce;
+	// private $nonce;
 	private $debug = true;
 
-	private function initNonce(){
-		$this->nonce = wp_create_nonce($this->nonceAction);
-	}
+	// private function initNonce(){
+	// 	$this->nonce = wp_create_nonce($this->nonceAction);
+	// }
 
 	private function initActivationHook(){		
 		
@@ -77,6 +73,8 @@ class UpUserDatakeeper{
 		self::$tableName = $wpdb->prefix . "udk_user_data"; 
 		
 
+
+
 		if( DB::tableExists(self::$tableName) ){
 			//silence is golden
 
@@ -106,7 +104,7 @@ class UpUserDatakeeper{
 		
 		$this->initScript('up-user-datakeeper', '/js/up-user-datakeeper.js', ['jquery'], 'udk', [
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-			'ajaxNonce' => $this->nonce,
+			'ajaxNonce' => \wp_create_nonce($this->nonceAction),
 		]);
 	}
 
@@ -165,13 +163,17 @@ class UpUserDatakeeper{
 	}
 	
 	public function __construct(){	
-		$this->initNonce();
+		// $this->initNonce();
 		$this->initActivationHook();
 		$this->initDeactivationHook();
 		$this->initUninstallHook();
 		$this->initUserDataTable();
-		$this->initScripts();	
-		$this->initStyles();	
+
+		add_action( 'wp_enqueue_scripts', function(){
+			$this->initScripts();	
+			$this->initStyles();	
+		});
+		
 		$this->initAjax();		
 		$this->initRestAPI();
 	}
